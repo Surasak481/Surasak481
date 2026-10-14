@@ -23,9 +23,9 @@ jobs:
           ls -R
       - name: Build APK
         run: |
-          curl -s https://services.gradle.org/distributions/gradle-8.4-bin.zip -o gradle.zip
+          curl -L -s https://services.gradle.org/distributions/gradle-8.4-bin.zip -o gradle.zip
           unzip -q gradle.zip
-          ./gradle-8.4/bin/gradle wrapper --gradle-version 8.4
+          ./gradle-8.4/bin/gradle wrapper --gradle-version 8.4 || (wget -q https://services.gradle.org/distributions/gradle-8.4-bin.zip -O gradle.zip && unzip -q gradle.zip && ./gradle-8.4/bin/gradle wrapper --gradle-version 8.4)
           chmod +x ./gradlew
           ./gradlew assembleDebug
       - name: Upload APK
